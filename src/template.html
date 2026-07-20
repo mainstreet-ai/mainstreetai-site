@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESC}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ROOT}}css/style.css">
+  <link rel="icon" type="image/svg+xml" href="{{ROOT}}assets/favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "MainStreet AI",
+    "description": "Websites, online booking, AI phone agents, ads management and business automation for local businesses.",
+    "areaServed": "Jacksonville, FL and beyond",
+    "telephone": "+19048648126"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="{{ROOT}}" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">MainStreet&nbsp;<em>AI</em></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ROOT}}" data-nav="index">Home</a>
+      <a href="{{ROOT}}services/" data-nav="services">Services</a>
+      <a href="{{ROOT}}pricing/" data-nav="pricing">Pricing</a>
+      <a href="{{ROOT}}contact/" data-nav="contact" class="nav-cta">Book a Free Call</a>
+    </nav>
+  </header>
+
+  <main>
+{{CONTENT}}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand">MainStreet <em>AI</em></p>
+        <p>Smart systems for Main Street businesses.<br>Jacksonville, Florida</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <p><a href="{{ROOT}}services/">Services</a><br>
+        <a href="{{ROOT}}pricing/">Pricing</a><br>
+        <a href="{{ROOT}}contact/">Contact</a></p>
+      </div>
+      <div>
+        <h3>Get in Touch</h3>
+        <p><a href="tel:+19048648126">(904) 864-8126</a></p>
+        <p class="footer-note">This site was hand-built on the same stack we sell: no page builders, no monthly platform fees, loads in under a second.</p>
+      </div>
+    </div>
+    <p class="footer-legal">&copy; MainStreet AI LLC. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ROOT}}js/main.js"></script>
+</body>
+</html>
