@@ -3,7 +3,7 @@
    Palette: light gray + white / navy / goldenrod + sage
    ============================================ */
 :root {
-  --paper: #e8ecf0;
+  --paper: #d9dfe6;
   --card: #ffffff;
   --ink: #17293b;
   --navy: #213a52;
@@ -16,7 +16,7 @@
   --sage-deep: #5c7a48;
   --terra: #c4513e;
   --muted: #586069;
-  --line: #dce1e6;
+  --line: #cdd4dc;
   --display: "Fraunces", Georgia, serif;
   --sans: "Work Sans", "Segoe UI", sans-serif;
 }
