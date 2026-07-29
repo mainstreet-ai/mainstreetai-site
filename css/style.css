@@ -3,15 +3,18 @@
    Palette: warm paper / deep navy ink / amber
    ============================================ */
 :root {
-  --paper: #faf7f2;
-  --card: #ffffff;
-  --ink: #1c2431;
-  --navy: #16202e;
-  --navy-2: #223349;
-  --amber: #d97706;
-  --amber-deep: #b45309;
-  --muted: #5d6673;
-  --line: #e7e0d4;
+  --paper: #f7f0df;
+  --card: #fffdf8;
+  --ink: #17293b;
+  --navy: #213a52;
+  --navy-2: #2c4a63;
+  --amber: #c4513e;
+  --amber-deep: #a83c2c;
+  --gold: #e0a94a;
+  --gold-deep: #cf922f;
+  --sage: #7e9b6b;
+  --muted: #6b6357;
+  --line: #e6dcc6;
   --display: "Fraunces", Georgia, serif;
   --sans: "Work Sans", "Segoe UI", sans-serif;
 }
@@ -46,6 +49,8 @@ h1 em, h2 em { font-style: italic; color: var(--amber); }
   width: 0.85rem; height: 0.85rem; border-radius: 2px;
   background: var(--amber); transform: rotate(45deg);
 }
+.brand-logo { height: 2.5rem; width: auto; display: block; }
+@media (max-width: 640px) { .brand-logo { height: 2.1rem; } }
 .brand-text { font-size: 1.3rem; }
 .brand-text em { font-style: italic; color: var(--amber-deep); }
 
@@ -98,7 +103,7 @@ h1 em, h2 em { font-style: italic; color: var(--amber); }
 
 /* ---------- sections ---------- */
 .section { padding: clamp(3rem, 7vw, 5rem) 5vw; }
-.section-alt { background: #f3eee5; }
+.section-alt { background: #f0e7d2; }
 .section-dark { background: var(--navy); color: #e8e4dc; }
 .section-dark h2, .section-dark h3 { color: #fff; }
 .section .eyebrow {
@@ -138,7 +143,7 @@ h1 em, h2 em { font-style: italic; color: var(--amber); }
 .card .card-price {
   font-family: var(--display); font-size: 1.05rem; color: var(--amber-deep);
 }
-.section-dark .card { background: var(--navy-2); border-color: #33465f; }
+.section-dark .card { background: var(--navy-2); border-color: #3a5872; }
 .section-dark .card p { color: #c3ccd8; }
 
 /* ---------- service detail rows ---------- */
@@ -232,7 +237,7 @@ h1 em, h2 em { font-style: italic; color: var(--amber); }
 /* ---------- CTA band ---------- */
 .cta-band {
   padding: clamp(2.6rem, 7vw, 4.2rem) 5vw; text-align: center;
-  background: linear-gradient(105deg, var(--navy), #2a3b52 75%);
+  background: linear-gradient(105deg, var(--navy), var(--navy-2) 75%);
   color: #e8e4dc;
 }
 .cta-band h2 { color: #fff; margin-bottom: 0.6rem; }
