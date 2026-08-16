@@ -102,6 +102,14 @@
           <label for="message">Tell us a little about your business</label>
           <textarea id="message" name="message" rows="4" placeholder="What do you do, and what's eating your time or money right now?"></textarea>
         </div>
+        <input type="hidden" name="utm_source"   id="utm_source">
+        <input type="hidden" name="utm_medium"   id="utm_medium">
+        <input type="hidden" name="utm_campaign" id="utm_campaign">
+        <input type="hidden" name="utm_term"     id="utm_term">
+        <input type="hidden" name="utm_content"  id="utm_content">
+        <input type="hidden" name="gclid"        id="gclid">
+        <input type="hidden" name="landing_page" id="landing_page">
+        <input type="hidden" name="referrer"     id="referrer">
         <button type="submit" class="btn btn-primary">Send Message</button>
         <p class="form-status" role="status"></p>
       </form>
@@ -121,6 +129,37 @@
     </div>
   </div>
 </section>
+
+<script>
+/* Fills hidden attribution fields so ad clicks can be told apart from
+   direct traffic. The form still submits as a plain HTML POST; this only
+   sets hidden field values, never intercepts the submit. */
+(function () {
+  var FIELDS = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid'];
+  var STORE = 'msa_attr';
+  var params = new URLSearchParams(window.location.search);
+  var seen = {};
+  FIELDS.forEach(function (f) { var v = params.get(f); if (v) seen[f] = v; });
+
+  /* Remember the first touch, so a visitor who arrives on an ad, browses,
+     and submits later still gets credited to that ad. */
+  var saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(STORE) || '{}'); } catch (e) {}
+  if (Object.keys(seen).length) {
+    saved = seen;
+    saved.landing_page = window.location.pathname;
+    saved.referrer = document.referrer || '';
+    try { sessionStorage.setItem(STORE, JSON.stringify(saved)); } catch (e) {}
+  }
+  if (!saved.landing_page) saved.landing_page = window.location.pathname;
+  if (saved.referrer == null) saved.referrer = document.referrer || '';
+
+  FIELDS.concat(['landing_page','referrer']).forEach(function (f) {
+    var el = document.getElementById(f);
+    if (el && saved[f]) el.value = saved[f];
+  });
+})();
+</script>
 
   </main>
 
