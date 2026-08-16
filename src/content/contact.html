@@ -10,8 +10,9 @@
       <h2>Send a message</h2>
       <form id="contact-form" novalidate class="form-card" method="POST" action="https://lineagestudio.app.n8n.cloud/webhook/mainstreetai-inquiry">
         <div class="form-row hp-field" aria-hidden="true">
-          <label for="company_hp">Company</label>
-          <input type="text" id="company_hp" name="company_hp" tabindex="-1" autocomplete="off">
+          <label for="msa_ref_code">Leave this field blank</label>
+          <input type="text" id="msa_ref_code" name="msa_ref_code" tabindex="-1"
+                 autocomplete="off" inputmode="none">
         </div>
         <div class="form-row">
           <label for="name">Your Name</label>
@@ -20,6 +21,10 @@
         <div class="form-row">
           <label for="business">Business Name</label>
           <input type="text" id="business" name="business" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label for="website">Website <span style="font-weight:400;opacity:.65">(if you have one)</span></label>
+          <input type="url" id="website" name="website" placeholder="yourbusiness.com" autocomplete="url">
         </div>
         <div class="form-row">
           <label for="email">Email</label>
@@ -32,14 +37,11 @@
         <div class="form-row">
           <label for="interest">What are you interested in?</label>
           <select id="interest" name="interest">
-            <option value="">Not sure yet — that's fine</option>
+            <option value="">Not sure yet, that's fine</option>
             <option>Website &amp; online booking</option>
             <option>AI phone agent</option>
             <option>Google Ads</option>
-            <option>Dashboards &amp; automation</option>
-            <option>Lead manager</option>
-            <option>Bookkeeping</option>
-            <option>The whole stack</option>
+            <option>All three</option>
           </select>
         </div>
         <div class="form-row">
