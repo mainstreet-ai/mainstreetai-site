@@ -65,12 +65,32 @@ template or content HTML.
 ## Forms
 
 The contact form (`src/content/contact.html`) posts directly via
-`method="POST" action="..."` to a production n8n webhook
-(`lineagestudio.app.n8n.cloud/webhook/.../mainstreetai-inquiry`) — there is no
-client-side fetch/JS handling of submission. It has a honeypot field
-(`company_hp`, visually hidden, `tabindex="-1"`) for basic spam filtering.
-When editing this form, keep the honeypot field and the hardcoded webhook
-`action` intact unless you're deliberately changing the intake endpoint.
+`method="POST" action="https://lineagestudio.app.n8n.cloud/webhook/mainstreetai-inquiry"`.
+There is no `fetch()`/`XMLHttpRequest` submission and no `preventDefault()`;
+the browser's native POST is what sends the data, which is why there is no CORS
+exposure. Keep it that way.
+
+Four fields exist purely for spam filtering. n8n decides on all four in a
+single `Spam Gate` Code node; the page itself never blocks anything.
+
+- `msa_ref_code` and `msa_alt_uri` are honeypots, off-screen via `.hp-field`,
+  `tabindex="-1"`, `autocomplete="off"`. Their names are deliberately
+  meaningless so no browser autofill profile matches them. **Do not rename
+  either to anything resembling a real profile field** (`company`, `address`,
+  `url`). The previous honeypot was named `company_hp` with a label reading
+  "Company", Chrome autofilled it, and real inquiries were silently discarded.
+- `msa_ok` is empty in the served HTML and filled by JS on load with the UTC
+  date reversed plus `-msa`. A client that POSTs straight at the webhook
+  without loading the page leaves it blank. n8n recomputes and compares,
+  accepting yesterday/today/tomorrow UTC.
+- `msa_t` is filled by a `submit` listener with elapsed milliseconds from
+  `performance.now()`, not a wall-clock timestamp, so a visitor with a wrong
+  system clock is unaffected. n8n rejects under 3000 ms.
+
+Cloudflare Turnstile markup is present but commented out in two places: the
+widget div in the form and the `api.js` loader at the end of the file. Do not
+uncomment it until the n8n workflow verifies `cf-turnstile-response` against
+`challenges.cloudflare.com/turnstile/v0/siteverify` server side.
 
 ## Conventions
 

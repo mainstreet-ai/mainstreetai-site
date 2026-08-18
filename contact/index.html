@@ -70,6 +70,15 @@
           <input type="text" id="msa_ref_code" name="msa_ref_code" tabindex="-1"
                  autocomplete="off" inputmode="none">
         </div>
+        <div class="form-row hp-field" aria-hidden="true">
+          <label for="msa_alt_uri">Leave this field blank</label>
+          <input type="text" id="msa_alt_uri" name="msa_alt_uri" tabindex="-1"
+                 autocomplete="off" inputmode="none">
+        </div>
+        <!-- Filled by JavaScript on page load. A client that never ran the page
+             leaves these empty, which is the signal n8n drops on. -->
+        <input type="hidden" name="msa_ok" id="msa_ok" value="">
+        <input type="hidden" name="msa_t"  id="msa_t"  value="">
         <div class="form-row">
           <label for="name">Your Name</label>
           <input type="text" id="name" name="name" required autocomplete="name">
@@ -112,6 +121,21 @@
         <input type="hidden" name="gclid"        id="gclid">
         <input type="hidden" name="landing_page" id="landing_page">
         <input type="hidden" name="referrer"     id="referrer">
+        <!-- CLOUDFLARE TURNSTILE
+             To switch on: create a free widget at dash.cloudflare.com, Turnstile,
+             for the domain mymainstreetai.com. Replace TURNSTILE_SITE_KEY_HERE
+             below with the site key, delete these two comment markers and the
+             matching pair around the api.js script tag in the head block at the
+             bottom of this file, then run: node build.js
+             Do not switch this on until the n8n workflow verifies the token
+             server side, or every submission will be accepted unchecked.
+        <div class="form-row">
+          <div class="cf-turnstile"
+               data-sitekey="TURNSTILE_SITE_KEY_HERE"
+               data-theme="light"
+               data-appearance="always"></div>
+        </div>
+        -->
         <button type="submit" class="btn btn-primary">Send Message</button>
         <p class="form-status" role="status"></p>
       </form>
@@ -161,7 +185,42 @@
     if (el && saved[f]) el.value = saved[f];
   });
 })();
+
+/* Bot defenses. Both fields below are empty in the served HTML and are only
+   populated once this script runs. A bot that POSTs straight at the webhook
+   without ever loading the page sends them blank, which n8n drops.
+   The form still submits as a plain HTML POST. The submit listener below only
+   writes a value into a hidden field; it never calls preventDefault, never
+   fetches, and the browser's native POST proceeds exactly as before. */
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  /* Proof that JavaScript executed. Derived from the UTC date so n8n can
+     recompute and compare it without any shared state. */
+  var d = new Date();
+  var stamp = '' + d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate());
+  var tok = document.getElementById('msa_ok');
+  if (tok) tok.value = stamp.split('').reverse().join('') + '-msa';
+
+  /* Milliseconds the visitor actually spent on the page before submitting.
+     Measured entirely in the browser, so a visitor whose system clock is wrong
+     is unaffected. n8n rejects anything faster than a human can read the form. */
+  var t0 = (window.performance && performance.now) ? performance.now() : Date.now();
+  var form = document.getElementById('contact-form');
+  var t = document.getElementById('msa_t');
+  if (form && t) {
+    form.addEventListener('submit', function () {
+      var t1 = (window.performance && performance.now) ? performance.now() : Date.now();
+      t.value = String(Math.round(t1 - t0));
+    });
+  }
+})();
 </script>
+
+<!-- CLOUDFLARE TURNSTILE LOADER
+     Uncomment this together with the .cf-turnstile div above, then rebuild.
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+-->
 
   </main>
 
