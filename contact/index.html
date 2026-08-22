@@ -210,9 +210,41 @@
   var form = document.getElementById('contact-form');
   var t = document.getElementById('msa_t');
   if (form && t) {
-    form.addEventListener('submit', function () {
+    /* Double submit guard. The workflow takes 4 to 6 seconds to answer, which
+       is long enough that people tap Send a second time and create duplicate
+       leads. The second submit is cancelled outright. The button is disabled
+       on a zero delay timer rather than inline, because disabling a submit
+       button inside its own submit handler cancels the native POST in some
+       browsers. Deferring by one tick lets the POST leave first. */
+    var submitted = false;
+    form.addEventListener('submit', function (e) {
+      if (submitted) { e.preventDefault(); return; }
+      submitted = true;
+
       var t1 = (window.performance && performance.now) ? performance.now() : Date.now();
       t.value = String(Math.round(t1 - t0));
+
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        window.setTimeout(function () {
+          btn.disabled = true;
+          btn.setAttribute('aria-busy', 'true');
+          btn.textContent = 'Sending...';
+        }, 0);
+      }
+    });
+
+    /* Restore the form if the visitor uses the back button. Browsers serve the
+       previous page from the back/forward cache with the button still frozen. */
+    window.addEventListener('pageshow', function (e) {
+      if (!e.persisted) return;
+      submitted = false;
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = 'Send Message';
+      }
     });
   }
 })();
