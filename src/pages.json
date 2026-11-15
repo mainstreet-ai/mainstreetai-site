@@ -9,7 +9,7 @@
     "slug": "services",
     "nav": "services",
     "title": "Services | MainStreet AI",
-    "desc": "Custom websites with online booking, Google Ads management, AI phone answering, business dashboards, lead management and CPA-ready bookkeeping for local businesses."
+    "desc": "Custom websites with online booking, AI phone answering, business dashboards, lead management and CPA-ready bookkeeping for local businesses."
   },
   {
     "slug": "pricing",
@@ -46,12 +46,6 @@
     "nav": "services",
     "title": "Small Business Websites & Online Booking | MainStreet AI | Jacksonville, FL",
     "desc": "Hand-coded websites you own outright, with Square booking built in. No platform fees, no lock-in, live in about two weeks. Builds from $1,500. Jacksonville, FL."
-  },
-  {
-    "slug": "google-ads-management",
-    "nav": "services",
-    "title": "Google Ads Management for Local Business | MainStreet AI | Jacksonville, FL",
-    "desc": "Google Ads audited and rebuilt around searches from people ready to buy. Setup from $300, management from $200/mo plus your own ad budget. Jacksonville, FL."
   },
   {
     "slug": "thank-you",
