@@ -22,11 +22,11 @@
     "telephone": "+19048648126"
   }
   </script>
-  <!-- ===== GOOGLE TAG =====
-       Live. Google Ads account 690-446-8344. Tag ID AW-17499902291.
-       Conversion action "Contact form submitted" fires from the event
-       snippet at the bottom of src/content/thank-you.html, on page load
-       only. Never move that snippet to another page or a button click.
+  <!-- ===== MEASUREMENT TAG =====
+       The conversion action fires from the event snippet at the bottom of
+       src/content/thank-you.html, on page load only. Never move that
+       snippet to another page and never attach it to a button click.
+       Account and tag identifiers are recorded in the project docs, not here.
   -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17499902291"></script>
   <script>
@@ -90,10 +90,10 @@
   </div>
 </section>
 
-<!-- Google Ads conversion: "Contact form submitted" (account 690-446-8344).
-     Fires on page load of /thank-you/ only, which is reached solely via the
-     n8n Respond to Webhook 302 after a successful form post. Do not copy this
-     to any other page and do not attach it to a button click. -->
+<!-- Conversion event. Fires on page load of /thank-you/ only, which is
+     reached solely via the n8n Respond to Webhook 302 after a successful form
+     post. Do not copy this to any other page and do not attach it to a button
+     click. -->
 <script>
   gtag('event', 'conversion', {
       'send_to': 'AW-17499902291/troHCMaljeUcENOizZhB',
